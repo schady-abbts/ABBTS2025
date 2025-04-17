@@ -1,6 +1,7 @@
 package com.example.abbts2025.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,28 +26,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.abbts2025.data.Product
-
 import com.example.abbts2025.R
+import com.example.abbts2025.data.Product
+import com.example.abbts2025.ui.theme.AppTheme
 
 @Composable
 fun ProductCard(
+    onClick: () -> Unit,
     product: Product,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable(onClick = { onClick() }),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1C20)),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -68,21 +73,21 @@ fun ProductCard(
                     Text(
                         text = product.name,
                         style = MaterialTheme.typography.titleMedium.copy(
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold
                         )
                     )
                     Text(
                         text = product.producer,
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = Color(0xFFEBB376)
+                            color = MaterialTheme.colorScheme.primary
                         )
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = product.description,
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color(0xFFCCCCCC)
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         ),
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis
@@ -101,8 +106,8 @@ fun ProductCard(
                         label = { Text(it) },
                         shape = RoundedCornerShape(8.dp),
                         colors = AssistChipDefaults.assistChipColors(
-                            containerColor = Color(0xFF292C31),
-                            labelColor = Color.White
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            labelColor = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
                 }
@@ -118,14 +123,14 @@ fun ProductCard(
                 Text(
                     text = product.priceFormatted,
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 )
                 IconButton(onClick = { /* TODO: add to cart */ }) {
                     Icon(
                         imageVector = Icons.Default.ShoppingCart,
                         contentDescription = "Add to cart",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -133,7 +138,7 @@ fun ProductCard(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF1A1C20)
+@Preview(showBackground = true)
 @Composable
 fun ProductCardPreview() {
     val apfel = Product(
@@ -150,5 +155,7 @@ fun ProductCardPreview() {
         imageResId = R.drawable.apfel
     )
 
-    ProductCard(product = apfel)
+    AppTheme { // <- Hier dein Theme anwenden
+        ProductCard(product = apfel, onClick = {})
+    }
 }
