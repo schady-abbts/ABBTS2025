@@ -32,8 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.abbts2025.R
 import com.example.abbts2025.data.Product
+import com.example.abbts2025.data.productList
 import com.example.abbts2025.ui.theme.AppTheme
 
 @Composable
@@ -141,19 +141,7 @@ fun ProductCard(
 @Preview(showBackground = true)
 @Composable
 fun ProductCardPreview() {
-    val apfel = Product(
-        id = 1,
-        name = "Rote Äpfel",
-        producer = "Obsthof Müller",
-        category = "Obst",
-        description = "Frische, saftige rote Äpfel aus regionalem Anbau.",
-        price = 2.99,
-        priceFormatted = "CHF 2.99 / kg",
-        unit = "kg",
-        available = true,
-        tags = listOf("regional", "bio", "saisonal"),
-        imageResId = R.drawable.apfel
-    )
+    val apfel = productList[0]
 
     AppTheme { // <- Hier dein Theme anwenden
         ProductCard(product = apfel, onClick = {})

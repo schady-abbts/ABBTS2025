@@ -5,7 +5,7 @@ data class Product(
     val id: Int,
     val name: String,
     val producer: String,
-    val category: String,
+    val category: Category,
     val description: String,
     val price: Double,
     val priceFormatted: String, // CHF z. B.

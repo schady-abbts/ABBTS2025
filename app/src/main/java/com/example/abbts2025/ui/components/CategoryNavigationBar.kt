@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiFoodBeverage
-import androidx.compose.material.icons.filled.Grass
-import androidx.compose.material.icons.filled.LocalGroceryStore
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,16 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.abbts2025.data.Category
 import com.example.abbts2025.ui.theme.AppTheme
 
-enum class Category(val label: String, val icon: ImageVector) {
-    Obst("Obst", Icons.Default.LocalGroceryStore),
-    Gemuese("Gemüse", Icons.Default.Grass),
-    Feinkost("Feinkost", Icons.Default.EmojiFoodBeverage)
-}
 
 @Composable
 fun CategoryNavigationBar(
@@ -47,7 +39,7 @@ fun CategoryNavigationBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding( bottom = 24.dp).padding(horizontal = 16.dp),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh,
         tonalElevation = 4.dp

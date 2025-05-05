@@ -7,21 +7,28 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.abbts2025.data.Category
 import com.example.abbts2025.data.productList
-import com.example.abbts2025.ui.screens.MainScreen
+import com.example.abbts2025.ui.screens.ProductListScreen
 import com.example.abbts2025.ui.screens.ProductScreen
 
 @Composable
-fun MainNavHost(navController: NavHostController) {
+fun MainNavHost(navController: NavHostController, selectedCategory: Category) {
     NavHost(
         navController = navController,
         startDestination = "main"
     ) {
         composable("main") {
-            MainScreen(
-                productList = productList,
+            val filteredProducts = if (selectedCategory == Category.Alle) {
+                productList
+            } else {
+                productList.filter { it.category == selectedCategory }
+            }
+            ProductListScreen(
+                productList = filteredProducts,
                 modifier = Modifier.padding(all = 24.dp),
-                navController = navController
+                navController = navController,
+                selectedCategory = selectedCategory
             )
         }
 
