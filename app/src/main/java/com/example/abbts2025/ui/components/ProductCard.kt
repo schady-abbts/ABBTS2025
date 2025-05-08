@@ -32,8 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.abbts2025.data.Product
-import com.example.abbts2025.data.productList
+import com.example.abbts2025.data.model.Product
+import com.example.abbts2025.data.repository.productList
 import com.example.abbts2025.ui.theme.AppTheme
 
 @Composable

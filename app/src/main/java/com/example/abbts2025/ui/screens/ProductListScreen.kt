@@ -13,8 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.abbts2025.data.Category
-import com.example.abbts2025.data.Product
+import com.example.abbts2025.data.model.Category
+import com.example.abbts2025.data.model.Product
 import com.example.abbts2025.ui.components.ProductCard
 
 @Composable
@@ -36,7 +36,12 @@ fun ProductListScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(items = productList, key = { product -> product.id }) { product ->
-            ProductCard(product = product, onClick = { navController.navigate("product") })
+            ProductCard(
+                product = product,
+                onClick = {
+                    //navController.navigate("product/${product.id}")
+                    navController.navigate("product_vm/${product.id}")
+                })
         }
     }
 

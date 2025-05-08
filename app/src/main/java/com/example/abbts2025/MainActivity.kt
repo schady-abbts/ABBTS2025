@@ -14,9 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.abbts2025.data.Category
+import com.example.abbts2025.data.model.Category
+import com.example.abbts2025.navigation.MainNavHost
 import com.example.abbts2025.ui.components.CategoryNavigationBar
-import com.example.abbts2025.ui.navigation.MainNavHost
 import com.example.abbts2025.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,8 +32,13 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         CategoryNavigationBar(
                             selectedCategory = selectedCategory,
-                            onCategorySelected = { category -> selectedCategory = category },
-                            onMenuClick = { navController.navigate("main") }
+                            onCategorySelected = {
+                                selectedCategory = it
+                                navController.popBackStack("main", false)
+                            },
+                            onMenuClick = {
+                                navController.popBackStack("main", false)
+                            }
                         )
                     }
                 ) { innerPadding ->

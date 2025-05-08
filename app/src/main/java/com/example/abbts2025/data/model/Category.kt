@@ -1,4 +1,4 @@
-package com.example.abbts2025.data
+package com.example.abbts2025.data.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category

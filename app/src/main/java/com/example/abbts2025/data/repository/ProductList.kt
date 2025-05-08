@@ -1,6 +1,8 @@
-package com.example.abbts2025.data
+package com.example.abbts2025.data.repository
 
 import com.example.abbts2025.R
+import com.example.abbts2025.data.model.Category
+import com.example.abbts2025.data.model.Product
 
 val productList = listOf(
     Product(

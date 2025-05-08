@@ -26,7 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.abbts2025.data.Category
+import com.example.abbts2025.data.model.Category
 import com.example.abbts2025.ui.theme.AppTheme
 
 
@@ -39,7 +39,8 @@ fun CategoryNavigationBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding( bottom = 24.dp).padding(horizontal = 16.dp),
+            .padding(bottom = 24.dp)
+            .padding(horizontal = 16.dp),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh,
         tonalElevation = 4.dp

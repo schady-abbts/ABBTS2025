@@ -1,4 +1,4 @@
-package com.example.abbts2025.ui.navigation
+package com.example.abbts2025.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -7,10 +7,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.abbts2025.data.Category
-import com.example.abbts2025.data.productList
+import com.example.abbts2025.data.model.Category
+import com.example.abbts2025.data.repository.productList
 import com.example.abbts2025.ui.screens.ProductListScreen
 import com.example.abbts2025.ui.screens.ProductScreen
+import com.example.abbts2025.ui.screens.ProductScreenWithState
 
 @Composable
 fun MainNavHost(navController: NavHostController, selectedCategory: Category) {
@@ -32,8 +33,18 @@ fun MainNavHost(navController: NavHostController, selectedCategory: Category) {
             )
         }
 
-        composable("product") {
-            ProductScreen(navController = navController)
+        composable("product/{productId}") { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
+            productId?.let {
+                ProductScreen(navController = navController, productId = it)
+            }
+        }
+
+        composable("product_vm/{productId}") { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
+            productId?.let {
+                ProductScreenWithState(navController = navController, productId = it)
+            }
         }
     }
 }

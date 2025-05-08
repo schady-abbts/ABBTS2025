@@ -1,5 +1,4 @@
-package com.example.abbts2025.data
-
+package com.example.abbts2025.data.model
 
 data class Product(
     val id: Int,
