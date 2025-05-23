@@ -40,9 +40,9 @@ import com.example.abbts2025.ui.theme.AppTheme
 fun ProductCard(
     onClick: () -> Unit,
     product: Product,
+    onAddToCart: (Product) -> Unit, // NEU
     modifier: Modifier = Modifier,
 ) {
-
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -126,10 +126,10 @@ fun ProductCard(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 )
-                IconButton(onClick = { /* TODO: add to cart */ }) {
+                IconButton(onClick = { onAddToCart(product) }) {
                     Icon(
                         imageVector = Icons.Default.ShoppingCart,
-                        contentDescription = "Add to cart",
+                        contentDescription = "In den Warenkorb",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -143,7 +143,11 @@ fun ProductCard(
 fun ProductCardPreview() {
     val apfel = productList[0]
 
-    AppTheme { // <- Hier dein Theme anwenden
-        ProductCard(product = apfel, onClick = {})
+    AppTheme {
+        ProductCard(
+            product = apfel,
+            onClick = {},
+            onAddToCart = {} // Dummy-Funktion für Vorschau
+        )
     }
 }

@@ -22,7 +22,8 @@ fun ProductListScreen(
     productList: List<Product>,
     modifier: Modifier,
     navController: NavController,
-    selectedCategory: Category
+    selectedCategory: Category,
+    onAddToCart: (Product) -> Unit // NEU
 ) {
     val listState = rememberLazyListState()
     LaunchedEffect(selectedCategory) { listState.animateScrollToItem(0) }
@@ -39,10 +40,10 @@ fun ProductListScreen(
             ProductCard(
                 product = product,
                 onClick = {
-                    //navController.navigate("product/${product.id}")
                     navController.navigate("product_vm/${product.id}")
-                })
+                },
+                onAddToCart = onAddToCart // NEU
+            )
         }
     }
-
 }

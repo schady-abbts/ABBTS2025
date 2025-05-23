@@ -9,12 +9,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.abbts2025.data.model.Category
 import com.example.abbts2025.data.repository.productList
+import com.example.abbts2025.ui.screens.CartScreen
 import com.example.abbts2025.ui.screens.ProductListScreen
-import com.example.abbts2025.ui.screens.ProductScreen
 import com.example.abbts2025.ui.screens.ProductScreenWithState
+import com.example.abbts2025.viewmodel.CartViewModel
 
 @Composable
-fun MainNavHost(navController: NavHostController, selectedCategory: Category) {
+fun MainNavHost(
+    navController: NavHostController,
+    selectedCategory: Category,
+    cartViewModel: CartViewModel // <- NEU: ViewModel durchreichen
+) {
     NavHost(
         navController = navController,
         startDestination = "main"
@@ -25,26 +30,31 @@ fun MainNavHost(navController: NavHostController, selectedCategory: Category) {
             } else {
                 productList.filter { it.category == selectedCategory }
             }
+
             ProductListScreen(
                 productList = filteredProducts,
                 modifier = Modifier.padding(all = 24.dp),
                 navController = navController,
-                selectedCategory = selectedCategory
+                selectedCategory = selectedCategory,
+                onAddToCart = { cartViewModel.addToCart(it) } // <- Callback
             )
         }
 
-        composable("product/{productId}") { backStackEntry ->
-            val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
-            productId?.let {
-                ProductScreen(navController = navController, productId = it)
-            }
-        }
+
 
         composable("product_vm/{productId}") { backStackEntry ->
             val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
             productId?.let {
-                ProductScreenWithState(navController = navController, productId = it)
+                ProductScreenWithState(
+                    navController = navController,
+                    productId = it,
+                    cartViewModel = cartViewModel // <- HIER wird er übergeben
+                )
             }
+        }
+
+        composable("cart") {
+            CartScreen(cartViewModel = cartViewModel)
         }
     }
 }

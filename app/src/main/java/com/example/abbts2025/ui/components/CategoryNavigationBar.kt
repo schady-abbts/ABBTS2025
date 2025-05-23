@@ -5,15 +5,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,12 +32,12 @@ import androidx.compose.ui.unit.dp
 import com.example.abbts2025.data.model.Category
 import com.example.abbts2025.ui.theme.AppTheme
 
-
 @Composable
 fun CategoryNavigationBar(
     selectedCategory: Category,
     onCategorySelected: (Category) -> Unit,
-    onMenuClick: () -> Unit
+    onCartClick: () -> Unit,
+    cartItemCount: Int
 ) {
     Surface(
         modifier = Modifier
@@ -83,25 +86,44 @@ fun CategoryNavigationBar(
                 }
             }
 
-            IconButton(onClick = onMenuClick) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menü",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clickable { onCartClick() }
+            ) {
+                BadgedBox(
+                    badge = {
+                        if (cartItemCount > 0) {
+                            Badge {
+                                Text(cartItemCount.toString())
+                            }
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ShoppingCart,
+                        contentDescription = "Warenkorb",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp)) // Gleichmäßiger Abstand
+                Text(
+                    text = "Warenkorb", // Oder "Cart"
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun CategoryNavigationBarPreview() {
-    // State zum Simulieren des ausgewählten Tabs
     var selectedCategory by remember { mutableStateOf(Category.Obst) }
 
-    // Deine Theme verwenden
     AppTheme {
         Column(
             modifier = Modifier
@@ -112,7 +134,8 @@ fun CategoryNavigationBarPreview() {
             CategoryNavigationBar(
                 selectedCategory = selectedCategory,
                 onCategorySelected = { selectedCategory = it },
-                onMenuClick = { /* Menü-Action */ }
+                onCartClick = { /* Warenkorb klick */ },
+                cartItemCount = 2 // Beispielwert
             )
         }
     }
